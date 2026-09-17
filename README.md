@@ -1,68 +1,32 @@
 # ORBITAL
 
-Minimal Solana launchpad protocol starter.
+**Programmable launch infrastructure for Solana.**
 
-Orbital is an Anchor-based example architecture for:
-- platform configuration
-- launch creation
-- deterministic launch PDAs
-- simple virtual bonding-curve quoting
-- buy/sell accounting
-- launch finalization
-- TypeScript SDK helpers
-- CLI examples
+Orbital is an experimental Solana protocol for creating, configuring, and coordinating permissionless token launches.
 
-> This repository is a development starter, not audited production code.
-> Do not deploy with real funds before adding token CPIs, vault accounting,
-> slippage protection, migration logic, access-control review, invariant tests,
-> fuzzing, and an independent security audit.
+The protocol is designed around a modular launch architecture where deployment logic, launch configuration, pricing mechanics, liquidity state, and future migration behavior can be separated into explicit on-chain components.
 
-## Repository layout
+Orbital is currently a development-stage protocol scaffold built with Rust, Anchor, and TypeScript.
 
-```text
-programs/orbital/        Anchor program
-sdk/                     TypeScript SDK
-cli/                     CLI examples
-tests/                   Anchor integration tests
-docs/                    Architecture notes
-```
+---
 
-## Program model
+## Overview
 
-Each launch is a PDA derived from:
+Most token launch systems combine a large amount of logic into a single launch flow.
+
+Orbital takes a more modular approach.
+
+A launch can be thought of as a collection of independently configurable components:
 
 ```text
-["launch", creator, mint]
-```
-
-The current starter stores virtual SOL/token reserves in program state and uses
-a constant-product quote model for deterministic examples.
-
-The starter intentionally does **not** custody real SOL or SPL tokens yet.
-That keeps the example small enough to understand and audit before adding CPIs.
-
-## Commands
-
-```bash
-npm install
-anchor build
-anchor test
-```
-
-Run the CLI:
-
-```bash
-npm run cli -- create
-```
-
-## Next production steps
-
-1. Add SPL/Token-2022 mint creation.
-2. Create SOL and token vault PDAs.
-3. Transfer assets with checked CPIs.
-4. Add `min_out` slippage guards.
-5. Add protocol/creator fee accounting.
-6. Add liquidity migration.
-7. Add pause/emergency controls.
-8. Add property/fuzz tests.
-9. Audit before mainnet.
+Launch
+│
+├── Token Mint
+├── Launch State
+├── Virtual Reserves
+├── Pricing Curve
+├── Creator Configuration
+├── Fee Configuration
+├── Vault State
+├── Migration Configuration
+└── Finalization State
